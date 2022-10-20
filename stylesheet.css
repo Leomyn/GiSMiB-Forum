@@ -1,0 +1,26 @@
+html{
+    background-color:aquamarine;
+}
+
+header h1{
+    text-align: center;
+}
+
+nav ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    position: relative;
+    margin: 0px;
+	padding: 0px;
+}
+
+nav li{
+    margin:auto;
+}
+
+div a{
+    margin: 0;
+    padding: 0;
+}
