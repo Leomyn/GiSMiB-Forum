@@ -24,3 +24,10 @@ div a{
     margin: 0;
     padding: 0;
 }
+
+.post{
+    width: max-content;
+    height: 300px;
+    border:solid 2px black;
+}
+
