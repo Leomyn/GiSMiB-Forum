@@ -25,9 +25,39 @@ div a{
     padding: 0;
 }
 
-.post{
-    width: max-content;
-    height: 300px;
+img{
+    float: left;
+    margin-top: 2px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.post,.comment,.subcomment{
+    width: 900px;
+    height: max-content;
     border:solid 2px black;
 }
+
+.post h3 {
+    text-align: top;
+    float:inline-start;
+}
+
+
+
+.comment{
+    margin-top: 5px;
+    margin-left: 1.25cm;
+}
+
+.subcomment{
+    margin-left: 2.5cm;
+}
+
+
+.comment p{
+    display: inline-block;
+    
+}
+
 
