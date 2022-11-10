@@ -28,7 +28,11 @@ for(i in title){
     nav.appendChild(navItem);
 }
 
-//if(window.location.pathname == ){
+/* da der Post-div-Block out of place auf anderen Seiten
+wirkt, dachte ich dass man mit window und einer if aussage
+bestimmen kann dass er nur auf der index seite und auf der
+Seite sehen kann.   */
+//if(window.location.pathname == /posts.html  && window.location.pathname == /index.html){
 let post = document.createElement("div");
 post.className = "post";
 let image = document.createElement("img");
