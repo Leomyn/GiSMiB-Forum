@@ -4,25 +4,38 @@ html{
 
 header h1{
     text-align: center;
+    margin-bottom: 1cm;
 }
 
-nav ul{
-    list-style: none;
-    display: flex;
-    flex-direction: row;
+#nav{
+    text-align:center;
+    border-bottom: 0.2em solid black;
+    margin-bottom: 2cm;
+}
+
+a.navItem:hover {
+    color:rgb(0, 0, 0);
+    font-size: 1.1em;
+  }
+
+
+
+.navItem {
+    margin: 0.2em;
+    padding: 0.5em;
+    text-decoration: none;
+    color: blue;
     text-align: center;
-    position: relative;
-    margin: 0px;
-	padding: 0px;
+  }
+
+
+.post a{
+    margin: 0cm;
+    padding: 0cm;
 }
 
-nav li{
-    margin:auto;
-}
-
-div a{
-    margin: 0;
-    padding: 0;
+.post a:hover{
+    color: red;
 }
 
 img{
@@ -34,7 +47,7 @@ img{
 
 .post,.comment,.subcomment{
     width: 900px;
-    height: max-content;
+    height:max-content;
     border:solid 2px black;
 }
 
@@ -42,8 +55,6 @@ img{
     text-align: top;
     float:inline-start;
 }
-
-
 
 .comment{
     margin-top: 5px;
@@ -60,4 +71,7 @@ img{
     
 }
 
-
+footer{
+    border-top: 0.2em solid black;
+    margin-top: 2cm;
+}
