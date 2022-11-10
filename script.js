@@ -28,4 +28,32 @@ for(i in title){
     nav.appendChild(navItem);
 }
 
+//if(window.location.pathname == ){
+let post = document.createElement("div");
+post.className = "post";
+let image = document.createElement("img");
+image.src = "images/smiley.png";
+let h3 = document.createElement("h3");
+h3.textContent = "Titel des Forum-Beitrags";
+let p = document.createElement("p");
+p.textContent = "Dies sind die ersten Worte vom Javascript erzeugten Beitrag...";
+let a = document.createElement("a");
+a.href = "/post.html";
+let div = document.createElement("div");
+div.textContent= "Mehr lesen";
+a.append(div);
+let main = document.createElement("main");
+document.body.insertBefore(main,footer);
+main.append(post);
+post.append(image);
+post.append(h3);
+post.append(p);
+post.append(a);
+let hr = document.createElement("hr");
+document.body.insertBefore(hr,main);
+//}
+
+
+
+
 
