@@ -92,6 +92,6 @@ function createPreview(){
     post.append(p);
     let hr = document.createElement("hr");
     document.body.insertBefore(hr,main);
-    //Seite lädt neu - Eintrag verschwindet schnell
-    //
+    //muss die vorherige vorschau löschen
+    //createPost k
 }
