@@ -36,7 +36,7 @@ Seite sehen kann.   */
 let post = document.createElement("div");
 post.className = "post";
 let image = document.createElement("img");
-image.src = "images/smiley.png";
+image.src = "images/clownsmiley.png";
 let h3 = document.createElement("h3");
 h3.textContent = "Titel des Forum-Beitrags";
 let p = document.createElement("p");
@@ -57,7 +57,15 @@ let hr = document.createElement("hr");
 document.body.insertBefore(hr,main);
 //}
 
+/*
+//übung aus der vorlesung
+let button = document.createElement("button");
+main.append(button);
+button.addEventListener("click",createHallo)
 
-
-
-
+function createHallo(event){
+    let p = document.createElement("p");
+    p.textContent="Hallo"
+    main.append(p);
+}
+*/
