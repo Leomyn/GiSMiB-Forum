@@ -28,10 +28,10 @@ for(i in title){
     nav.appendChild(navItem);
 }
 
-/* da der Post-div-Block out of place auf anderen Seiten
+/*da der Post-div-Block out of place auf anderen Seiten
 wirkt, dachte ich dass man mit window und einer if aussage
 bestimmen kann dass er nur auf der index seite und auf der
-Seite sehen kann.   */
+Seite sehen kann. */   
 //if(window.location.pathname == /posts.html  && window.location.pathname == /index.html){
 let post = document.createElement("div");
 post.className = "post";
@@ -70,6 +70,7 @@ function createHallo(event){
 }
 */
 
+
 let previewButton = document.getElementById("preview");
 previewButton.addEventListener("click",createPreview);
 function createPreview(){
@@ -83,7 +84,6 @@ function createPreview(){
     h3.textContent = titel;
     let p = document.createElement("p");
     p.textContent = content;
-    a.append(div);
     let main = document.createElement("main");
     document.body.insertBefore(main,footer);
     main.append(post);
@@ -93,5 +93,51 @@ function createPreview(){
     let hr = document.createElement("hr");
     document.body.insertBefore(hr,main);
     //muss die vorherige vorschau löschen
-    //createPost k
+    //createPost kann auf dasselbe prinzip createt werden
 }
+
+const entry = {
+    User : "",
+    Title: "",
+    content: "",
+    likes: 0,
+}
+
+const comment = {
+    User:"",
+    content:"",
+    likes:0,
+}
+
+const subcomment = {
+    User:"",
+    content:"",
+    likes:0,
+}
+
+//erstellen von comments
+let sendComment = document.getElementById("sendComment");
+sendComment.addEventListener("click",createComment)
+function createComment(event){
+    let content = document.getElementById("comment").value;
+    let comment = document.createElement("div");
+    comment.className = "comment";
+    let image = document.createElement("img");
+    image.src= "images/clownsmiley.png";
+    let User = document.createElement("h3");
+    User.textContent = "User";
+    let likebutton = document.createElement("button");
+    likebutton.textContent= "Gefällt mir";
+    let p = document.createElement("p");
+    p.textContent = content;
+    let input = document.createElement("textarea");
+    input.id = ""
+    comment.append(image);
+    comment.append(User);
+    comment.append(p);
+    comment.append(likebutton);
+    document.body.appendChild(comment);
+}
+
+//Scripte auf die jeweiligen Seiten umschreiben und verlagern sonst herrscht Chaos
+//HeaderFooter, post, posts und createPost brauchen jeweils separate scripts
