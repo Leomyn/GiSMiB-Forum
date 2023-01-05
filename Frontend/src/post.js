@@ -22,14 +22,42 @@ post.append(a);
 let hr = document.createElement("hr");
 document.body.insertBefore(hr,main);
 */
-const entry = {
+
+const entries = [{
     User : "",
     Title: "",
     content: "",
     likes: 0,
-}
+    comments: [
+        {
+            User:"",
+            content:"",
+            likes:0,
+        },{
+            User:"",
+            content:"",
+            likes:0,
+          }
+    ]
+},{
+    User : "",
+    Title: "",
+    content: "",
+    likes: 0,
+    comments: [
+        {
+            User:"",
+            content:"",
+            likes:0,
+        },{
+            User:"",
+            content:"",
+            likes:0,
+          }
+    ]
+}]
 
-const comment = {
+/*const comment = {
     User:"",
     content:"",
     likes:0,
@@ -40,6 +68,7 @@ const subcomment = {
     content:"",
     likes:0,
 }
+*/
 
 //erstellen von comments
 let sendComment = document.getElementById("sendComment");
