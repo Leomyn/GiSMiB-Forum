@@ -1,5 +1,8 @@
-console.log(threads);
+        const url = 'http://localhost:3000/';
+        console.log(threads);
+        async function showThreads(){
         let container = document.querySelector('ol');
+        await readStorage();
         for (let thread of threads) {
             let html = `
             <li class="row">
@@ -9,7 +12,7 @@ console.log(threads);
                     </h4>
                     <div class="bottom">
                         <p class="timestamp">
-                            ${new Date(thread.date).toLocaleString()}
+                           Erstellt am: ${new Date(thread.date).toLocaleString()}
                         </p>
                         <p class="comment-count">
                             ${thread.comments.length} comments
@@ -20,6 +23,7 @@ console.log(threads);
             `
             container.insertAdjacentHTML('beforeend', html);
         }
+    }
 
         function addThread(thread) {
             let threadHtml = `
@@ -63,5 +67,24 @@ console.log(threads);
             addThread(thread);
             txt.value = '';
             threads.push(thread);
-            localStorage.setItem('threads', JSON.stringify(threads));
+            //localStorage.setItem('threads', JSON.stringify(threads));
+            updateStorage();
         })
+
+
+
+        let Threads = [];
+
+        async function readStorage() {
+            const response = await fetch(url+'getItems');
+            const text = await response.text(); // Text aus Response Body
+            Threads = JSON.parse(text);
+        }
+        
+        async function updateStorage(){
+            //localStorage.setItem('threads', JSON.stringify(defaultThreads));
+            fetch(url+'setItems', {
+                method: 'post',
+                body: JSON.stringify(Threads),
+            });
+        }

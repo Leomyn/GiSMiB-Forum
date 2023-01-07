@@ -1,3 +1,4 @@
+const url = 'http://localhost:3000/';
 let id = window.location.search.slice(1);
         let thread = threads.find(t => t.id == id);
         let header = document.querySelector('.header');
@@ -7,7 +8,7 @@ let id = window.location.search.slice(1);
             </h4>
             <div class="bottom">
                 <p class="timestamp">
-                    ${new Date(thread.date).toLocaleString()}
+                   Schrieb am: ${new Date(thread.date).toLocaleString()}
                 </p>
                 <p class="comment-count">
                     ${thread.comments.length} comments
@@ -24,7 +25,7 @@ let id = window.location.search.slice(1);
                             ${comment.author}
                         </p>
                         <p class="comment-ts">
-                            ${new Date(comment.date).toLocaleString()}
+                           Kommentierte am: ${new Date(comment.date).toLocaleString()}
                         </p>
                     </div>
                     <div class="comment-content">
@@ -35,10 +36,13 @@ let id = window.location.search.slice(1);
             comments.insertAdjacentHTML('beforeend', commentHtml);
         }
 
+        async function showComments(){
+        await readStorage();
         let comments = document.querySelector('.comments');
         for (let comment of thread.comments) {
             addComment(comment);
         }
+    }
 
         let btn = document.querySelector('button');
         btn.addEventListener('click', function() {
@@ -51,5 +55,6 @@ let id = window.location.search.slice(1);
             addComment(comment);
             txt.value = '';
             thread.comments.push(comment);
-            localStorage.setItem('threads', JSON.stringify(threads));
+            //localStorage.setItem('threads', JSON.stringify(threads));
+            updateStorage();
         })

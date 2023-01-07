@@ -1,4 +1,5 @@
-let defaultThreads = [
+
+/*let defaultThreads = [
     {
         id: "1",
         title: "Thread 1",
@@ -22,3 +23,4 @@ if (localStorage && localStorage.getItem('threads')) {
     threads = defaultThreads;
     localStorage.setItem('threads', JSON.stringify(defaultThreads));
 }
+*/
