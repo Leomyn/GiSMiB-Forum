@@ -27,6 +27,18 @@
             container.insertAdjacentHTML('beforeend', html);
         }
     
+
+        let thread = { 
+            id: '',
+            title: '',
+            author: "Daniel",
+            date: Date.now(),
+            content: "Thread content",
+            comments: [
+                
+            ],
+        }
+
         function addThread() {
             let threadHtml = `
             <li class="row">
@@ -59,14 +71,11 @@
             date: Date.now(),
             content: "Thread content",
             comments: [
-                {
-                    
-                },
             ]
         }
             addThread(thread);
             txt.value = '';
-            thread.push(thread);
+            threads.push(thread);
             //localStorage.setItem('threads', JSON.stringify(threads));
             updateStorage();
         })
