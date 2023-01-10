@@ -36,7 +36,7 @@
                     </h4>
                     <div class="bottom">
                         <p class="timestamp">
-                            ${new Date(thread.date).toLocaleString()}
+                           Erstellt am: ${new Date(thread.date).toLocaleString()}
                         </p>
                         <p class="comment-count">
                             ${thread.comments.length} comments
