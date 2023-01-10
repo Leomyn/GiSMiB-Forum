@@ -60,10 +60,8 @@
             content: "Thread content",
             comments: [
                 {
-                    author: "",
-                    date: Date.now(),
-                    content:"", 
-                }
+                    
+                },
             ]
         }
             addThread(thread);
