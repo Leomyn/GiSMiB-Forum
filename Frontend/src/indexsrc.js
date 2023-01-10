@@ -74,7 +74,7 @@
 
 
     }
-        start();
+        
 
         async function readStorage() {
             const response = await fetch(url+'getItems');
@@ -89,3 +89,5 @@
                 body: JSON.stringify(threads),
             });
         }
+
+        start();
