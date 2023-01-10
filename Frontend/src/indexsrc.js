@@ -1,10 +1,12 @@
         const url = 'http://localhost:3000/';
         let threads = [];
+        
+        
         async function start(){
         await readStorage();
-        console.log(Threads);
+        console.log(threads);
         let container = document.querySelector('ol');
-        for (let thread of Threads) {
+        for (let thread of threads) {
             let html = `
             <li class="row">
                 <a href="./thread.html?${thread.id}">
@@ -25,7 +27,6 @@
             container.insertAdjacentHTML('beforeend', html);
         }
     
-
         function addThread() {
             let threadHtml = `
             <li class="row">
@@ -71,10 +72,8 @@
             //localStorage.setItem('threads', JSON.stringify(threads));
             updateStorage();
         })
-
-
-    }
         
+    }
 
         async function readStorage() {
             const response = await fetch(url+'getItems');

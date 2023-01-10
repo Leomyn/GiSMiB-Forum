@@ -15,7 +15,7 @@ let defaultThreads = [
                 author: "Dahlia",
                 date: Date.now(),
                 content: "Dies soll ein Kommentar sein"
-            }
+            },
         ]
     },
 ]
