@@ -1,9 +1,10 @@
         const url = 'http://localhost:3000/';
-        console.log(threads);
-        async function showThreads(){
-        let container = document.querySelector('ol');
+        let threads = [];
+        async function start(){
         await readStorage();
-        for (let thread of threads) {
+        console.log(Threads);
+        let container = document.querySelector('ol');
+        for (let thread of Threads) {
             let html = `
             <li class="row">
                 <a href="./thread.html?${thread.id}">
@@ -23,9 +24,9 @@
             `
             container.insertAdjacentHTML('beforeend', html);
         }
-    }
+    
 
-        function addThread(thread) {
+        function addThread() {
             let threadHtml = `
             <li class="row">
                 <a href="./thread.html?${thread.id}">
@@ -72,19 +73,19 @@
         })
 
 
-
-        let Threads = [];
+    }
+        start();
 
         async function readStorage() {
             const response = await fetch(url+'getItems');
             const text = await response.text(); // Text aus Response Body
-            Threads = JSON.parse(text);
+            threads = JSON.parse(text);
         }
         
         async function updateStorage(){
             //localStorage.setItem('threads', JSON.stringify(defaultThreads));
             fetch(url+'setItems', {
                 method: 'post',
-                body: JSON.stringify(Threads),
+                body: JSON.stringify(threads),
             });
         }

@@ -55,6 +55,23 @@ let id = window.location.search.slice(1);
             addComment(comment);
             txt.value = '';
             thread.comments.push(comment);
-            //localStorage.setItem('threads', JSON.stringify(threads));
-            updateStorage();
+            localStorage.setItem('threads', JSON.stringify(threads));
+            //updateStorage();
         })
+
+        
+        //let Threads = [];
+
+        async function readStorage() {
+            const response = await fetch(url+'getItems');
+            const text = await response.text(); // Text aus Response Body
+            Threads = JSON.parse(text);
+        }
+        
+        async function updateStorage(){
+            //localStorage.setItem('threads', JSON.stringify(defaultThreads));
+            fetch(url+'setItems', {
+                method: 'post',
+                body: JSON.stringify(Threads),
+            });
+        }

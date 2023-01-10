@@ -1,5 +1,5 @@
-
-/*let defaultThreads = [
+/*
+let defaultThreads = [
     {
         id: "1",
         title: "Thread 1",
