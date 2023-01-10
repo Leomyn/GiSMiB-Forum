@@ -1,6 +1,10 @@
 const url = 'http://localhost:3000/';
-let id = window.location.search.slice(1);
-        let thread = threads.find(t => t.id == id);
+let threads = [];
+
+async function startThread(){
+    await readStorage();
+    let id = window.location.search.slice(1);        
+    let thread = threads.find(t => t.id == id);
         let header = document.querySelector('.header');
         let headerHtml = `
             <h4 class="title">
@@ -36,13 +40,11 @@ let id = window.location.search.slice(1);
             comments.insertAdjacentHTML('beforeend', commentHtml);
         }
 
-        async function showComments(){
-        await readStorage();
         let comments = document.querySelector('.comments');
         for (let comment of thread.comments) {
             addComment(comment);
         }
-    }
+    
 
         let btn = document.querySelector('button');
         btn.addEventListener('click', function() {
@@ -56,22 +58,23 @@ let id = window.location.search.slice(1);
             txt.value = '';
             thread.comments.push(comment);
             localStorage.setItem('threads', JSON.stringify(threads));
-            //updateStorage();
+            updateStorage();
         })
+    }
+        startThread();
 
         
-        //let Threads = [];
 
         async function readStorage() {
             const response = await fetch(url+'getItems');
             const text = await response.text(); // Text aus Response Body
-            Threads = JSON.parse(text);
+            threads = JSON.parse(text);
         }
         
         async function updateStorage(){
             //localStorage.setItem('threads', JSON.stringify(defaultThreads));
             fetch(url+'setItems', {
                 method: 'post',
-                body: JSON.stringify(Threads),
+                body: JSON.stringify(threads),
             });
         }

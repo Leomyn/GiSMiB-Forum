@@ -17,7 +17,7 @@ let defaultThreads = [
                 content: "Dies soll ein Kommentar sein"
             },
         ]
-    },
+    }
 ]
 
 let threads = defaultThreads;

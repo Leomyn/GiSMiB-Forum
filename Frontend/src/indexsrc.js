@@ -2,7 +2,7 @@
         let threads = [];
         
         
-        async function start(){
+        async function startIndex(){
         await readStorage();
         console.log(threads);
         let container = document.querySelector('ol');
@@ -68,12 +68,13 @@
         }
             addThread(thread);
             txt.value = '';
-            threads.push(thread);
+            thread.push(thread);
             //localStorage.setItem('threads', JSON.stringify(threads));
             updateStorage();
         })
         
     }
+        startIndex();
 
         async function readStorage() {
             const response = await fetch(url+'getItems');
@@ -89,4 +90,4 @@
             });
         }
 
-        start();
+        
