@@ -1,7 +1,11 @@
 const http = require('http');
+const mongodb = require('mongodb');
 
 const hostname = '127.0.0.1'; // localhost
 const port = 3000;
+
+const url = 'mongodb://localhost:27017'; // für lokale MongoDB
+const mongoClient = new mongodb.MongoClient(url);
 
 let defaultThreads = [
     {
@@ -17,10 +21,24 @@ let defaultThreads = [
                 content: "Dies soll ein Kommentar sein"
             },
         ]
-    }
+    },
 ]
 
-let threads = defaultThreads;
+
+async function startServer() {
+    // connect to database
+    await mongoClient.connect();
+    // optional: defaultItems einfügen, wenn Collection noch nicht existiert
+    let collections = await mongoClient.db('forum').listCollections().toArray();
+    if(!collections.find(collection => collection.name == 'item')){
+        mongoClient.db('forum').collection('threads').insertMany(defaultThreads);
+    }
+    // listen for requests
+    server.listen(port, hostname, () => {
+        console.log(`Server running at http://${hostname}:${port}/`);
+    });
+}
+
 
 const server = http.createServer((request, response) => {
   response.statusCode = 200;
