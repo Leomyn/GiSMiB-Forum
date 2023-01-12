@@ -81,7 +81,7 @@ const server = http.createServer(async (request, response) => {
                 jsonString += data;
             });
             request.on('end', () => {
-                newThread = JSON.parse(jsonString);
+                let newThread = JSON.parse(jsonString);
                 if(newThread._id){ // update
                     newThread._id = mongodb.ObjectId(newThread._id); // von Zahl zu MongoDB ID Objekt konvertieren
                     threadCollection.replaceOne({
@@ -91,11 +91,12 @@ const server = http.createServer(async (request, response) => {
                 }
                 else{ // add
                     //newThread.id = new Date().valueOf();
-                    //threads.push(newThread);
+                    threads.push(newThread);
                     threadCollection.insertOne(newThread);
                 }
             });
         }
+        break;
 
     default:
         response.statusCode = 404;
