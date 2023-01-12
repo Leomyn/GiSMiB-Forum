@@ -91,12 +91,17 @@ const server = http.createServer(async (request, response) => {
                 }
                 else{ // add
                     //newThread.id = new Date().valueOf();
-                    threads.push(newThread);
                     threadCollection.insertOne(newThread);
                 }
+        
+
+
+
+
             });
-        }
+        } 
         break;
+        
 
     default:
         response.statusCode = 404;

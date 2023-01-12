@@ -1,5 +1,4 @@
 const url = 'http://localhost:3000/';
-let threads = [];
 
 async function startThread(){
     await readStorage();
@@ -7,6 +6,7 @@ async function startThread(){
     let thread = threads.find(t => t._id == id);
         let header = document.querySelector('.header');
         let headerHtml = `
+            <a href="./index.html" class="backbutton"> >>Zurück<< </a>
             <h4 class="title">
                 ${thread.title}
             </h4>
@@ -57,7 +57,7 @@ async function startThread(){
             addComment(comment);
             txt.value = '';
             thread.comments.push(comment);
-            localStorage.setItem('threads', JSON.stringify(threads));
+            //localStorage.setItem('threads', JSON.stringify(threads));
             updateStorage();
         })
     }
@@ -73,7 +73,7 @@ async function startThread(){
         
         async function updateStorage(){
             //localStorage.setItem('threads', JSON.stringify(defaultThreads));
-            fetch(url+'setItems', {
+            fetch(url+'setItem', {
                 method: 'post',
                 body: JSON.stringify(threads),
             });

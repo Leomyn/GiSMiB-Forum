@@ -63,9 +63,7 @@
         let btn = document.querySelector('button');
         btn.addEventListener('click',async function() {
             let txt = document.querySelector('textarea');
-            let threadId = threads.length+1;
             let newThread = { 
-            _id: threadId,
             title: txt.value,
             author: "Daniel",
             date: Date.now(),
