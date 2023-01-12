@@ -75,11 +75,10 @@
         }
             insertThread(thread);
             txt.value = '';
-            await addThread(newThread);
             threads.push(thread);
             //localStorage.setItem('threads', JSON.stringify(threads));
             //updateStorage(); 
-            //await addThread(newThread);
+            await addThread(newThread);
         })
         
     }
