@@ -19,6 +19,11 @@ let defaultThreads = [
                 date: Date.now(),
                 content: "Dies soll ein Kommentar sein"
             },
+            {
+                author: "Dahlia",
+                date: Date.now(),
+                content: "Dies soll ein weiterer Kommentar sein"
+            },
         ]
     },
     {
@@ -42,7 +47,7 @@ async function startServer() {
     await mongoClient.connect();
     // optional: defaultItems einfügen, wenn Collection noch nicht existiert
     let collections = await mongoClient.db('forum').listCollections().toArray();
-    if(!collections.find(collection => collection.name == 'thread')){
+    if (!collections.find(collection => collection.name == 'thread')) {
         mongoClient.db('forum').collection('thread').insertMany(defaultThreads);
     }
     // listen for requests
@@ -53,59 +58,61 @@ async function startServer() {
 
 
 const server = http.createServer(async (request, response) => {
-  response.statusCode = 200;
-  response.setHeader('Content-Type', 'text/plain');
-  response.setHeader('Access-Control-Allow-Origin', '*'); // bei CORS Fehler
-  const url = new URL(request.url || '', `http://${request.headers.host}`);
-  const id = url.searchParams.get('id');
-  const threadCollection = mongoClient.db('forum').collection('thread');
-  switch (url.pathname) {
-    case '/getItems':
-        let threads = await threadCollection.find({}).toArray();
-        response.write(JSON.stringify(threads));
-        break;
-    case '/getItem':
-        if(id){
-            
-            let threads = await threadCollection.find({
-                _id: new mongodb.ObjectId(id), // von Zahl zu MongoDB ID Objekt konvertieren
-            }).toArray();
-            response.write(JSON.stringify(threads[0]));
-        }
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/plain');
+    response.setHeader('Access-Control-Allow-Origin', '*'); // bei CORS Fehler
+    const url = new URL(request.url || '', `http://${request.headers.host}`);
+    const id = url.searchParams.get('id');
+    const threadCollection = mongoClient.db('forum').collection('thread');
+    switch (url.pathname) {
+        case '/getItems':
+            let threads = await threadCollection.find({}).toArray();
+            response.write(JSON.stringify(threads));
+            break;
+        case '/getItem':
+            if (id) {
+
+                let threads = await threadCollection.find({
+                    _id: new mongodb.ObjectId(id), // von Zahl zu MongoDB ID Objekt konvertieren
+                }).toArray();
+                response.write(JSON.stringify(threads[0]));
+            }
             break;
 
-    case '/setItem':
-        if(request.method === 'POST') {
-            let jsonString = '';
-            request.on('data', (data) => {
-                jsonString += data;
-            });
-            request.on('end', () => {
-                let newThread = JSON.parse(jsonString);
-                if(newThread._id){ // update
-                    newThread._id = mongodb.ObjectId(newThread._id); // von Zahl zu MongoDB ID Objekt konvertieren
-                    threadCollection.replaceOne({
-                        _id: newThread._id,
-                    },
-                    newThread);
-                }
-                else{ // add
-                    //newThread.id = new Date().valueOf();
-                    threadCollection.insertOne(newThread);
-                }
-        
+        case '/setItem':
+            if (request.method === 'POST') {
+                let jsonString = '';
+                request.on('data', (data) => {
+                    jsonString += data;
+                });
+                request.on('end', async () => {
+                    let newThread = JSON.parse(jsonString);
+                    console.log(jsonString);
+                    if (newThread._id) { // update
+                        newThread._id = mongodb.ObjectId(newThread._id); // von Zahl zu MongoDB ID Objekt konvertieren
+                        threadCollection.replaceOne({
+                            _id: newThread._id,
+                        },
+                            newThread);
+                    }
+                    else { // add
+                        //newThread.id = new Date().valueOf();
+                        const newMongoThread = await threadCollection.insertOne(newThread);
+                        console.log(newMongoThread);
+                        // response.write(JSON.stringify(newMongoThread));
+                    }
 
 
 
 
-            });
-        } 
-        break;
-        
+                });
+            }
+            break;
 
-    default:
-        response.statusCode = 404;
-  }
-  response.end();
+
+        default:
+            response.statusCode = 404;
+    }
+    response.end();
 });
 startServer();

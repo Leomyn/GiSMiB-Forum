@@ -1,11 +1,11 @@
 const url = 'http://localhost:3000/';
 
-async function startThread(){
+async function startThread() {
     await readStorage();
-    let id = window.location.search.slice(1);        
+    let id = window.location.search.slice(1);
     let thread = threads.find(t => t._id == id);
-        let header = document.querySelector('.header');
-        let headerHtml = `
+    let header = document.querySelector('.header');
+    let headerHtml = `
             <a href="./index.html" class="backbutton"> >>Zurück<< </a>
             <h4 class="title">
                 ${thread.title}
@@ -19,10 +19,10 @@ async function startThread(){
                 </p>
             </div>
         `
-        header.insertAdjacentHTML('beforeend', headerHtml)
+    header.insertAdjacentHTML('beforeend', headerHtml)
 
-        function addComment(comment) {
-            let commentHtml = `
+    function addComment(comment) {
+        let commentHtml = `
                 <div class="comment">
                     <div class="top-comment">
                         <p class="user">
@@ -37,44 +37,44 @@ async function startThread(){
                     </div>
                 </div>
             `
-            comments.insertAdjacentHTML('beforeend', commentHtml);
-        }
-
-        let comments = document.querySelector('.comments');
-        for (let comment of thread.comments) {
-            addComment(comment);
-        }
-    
-
-        let btn = document.querySelector('button');
-        btn.addEventListener('click', function() {
-            let txt = document.querySelector('textarea');
-            let comment = {
-                content: txt.value,
-                date: Date.now(),
-                author: 'User'
-            }
-            addComment(comment);
-            txt.value = '';
-            thread.comments.push(comment);
-            //localStorage.setItem('threads', JSON.stringify(threads));
-            updateStorage();
-        })
+        comments.insertAdjacentHTML('beforeend', commentHtml);
     }
-        startThread();
 
-        
+    let comments = document.querySelector('.comments');
+    for (let comment of thread.comments) {
+        addComment(comment);
+    }
 
-        async function readStorage() {
-            const response = await fetch(url+'getItems');
-            const text = await response.text(); // Text aus Response Body
-            threads = JSON.parse(text);
+
+    let btn = document.querySelector('button');
+    btn.addEventListener('click', function () {
+        let txt = document.querySelector('textarea');
+        let comment = {
+            content: txt.value,
+            date: Date.now(),
+            author: 'User'
         }
-        
-        async function updateStorage(){
-            //localStorage.setItem('threads', JSON.stringify(defaultThreads));
-            fetch(url+'setItem', {
-                method: 'post',
-                body: JSON.stringify(threads),
-            });
-        }
+        addComment(comment);
+        txt.value = '';
+        thread.comments.push(comment);
+        //localStorage.setItem('threads', JSON.stringify(threads));
+        updateStorage(thread);
+    })
+}
+startThread();
+
+
+
+async function readStorage() {
+    const response = await fetch(url + 'getItems');
+    const text = await response.text(); // Text aus Response Body
+    threads = JSON.parse(text);
+}
+
+async function updateStorage(updatedThread) {
+    //localStorage.setItem('threads', JSON.stringify(defaultThreads));
+    fetch(url + 'setItem', {
+        method: 'post',
+        body: JSON.stringify(updatedThread),
+    });
+}
