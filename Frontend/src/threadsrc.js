@@ -4,7 +4,7 @@ let threads = [];
 async function startThread(){
     await readStorage();
     let id = window.location.search.slice(1);        
-    let thread = threads.find(t => t.id == id);
+    let thread = threads.find(t => t._id == id);
         let header = document.querySelector('.header');
         let headerHtml = `
             <h4 class="title">

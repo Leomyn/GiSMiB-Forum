@@ -9,7 +9,7 @@
         for (let thread of threads) {
             let html = `
             <li class="row">
-                <a href="./thread.html?${thread.id}">
+                <a href="./thread.html?${thread._id}">
                     <h4 class="title">
                         ${thread.title}
                     </h4>
@@ -29,7 +29,7 @@
     
 
         let thread = { 
-            id: '',
+            _id: '',
             title: '',
             author: "Daniel",
             date: Date.now(),
@@ -39,10 +39,10 @@
             ],
         }
 
-        function addThread() {
+        async function insertThread() {
             let threadHtml = `
             <li class="row">
-                <a href="./thread.html?${thread.id}">
+                <a href="./thread.html?${thread._id}">
                     <h4 class="title">
                         ${thread.title}
                     </h4>
@@ -61,11 +61,11 @@
         }
 
         let btn = document.querySelector('button');
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click',async function() {
             let txt = document.querySelector('textarea');
             let threadId = threads.length+1;
-            let thread = { 
-            id: threadId,
+            let newThread = { 
+            _id: threadId,
             title: txt.value,
             author: "Daniel",
             date: Date.now(),
@@ -73,11 +73,13 @@
             comments: [
             ]
         }
-            addThread(thread);
+            insertThread(thread);
             txt.value = '';
+            await addThread(newThread);
             threads.push(thread);
             //localStorage.setItem('threads', JSON.stringify(threads));
-            updateStorage();
+            //updateStorage(); 
+            //await addThread(newThread);
         })
         
     }
@@ -89,12 +91,19 @@
             threads = JSON.parse(text);
         }
         
-        async function updateStorage(){
+        async function addThread(newThread){
+            fetch(url+'setItem', {
+                method: 'post',
+                body: JSON.stringify(newThread),
+            });
+        }
+
+        /*async function updateStorage(){
             //localStorage.setItem('threads', JSON.stringify(defaultThreads));
             fetch(url+'setItems', {
                 method: 'post',
                 body: JSON.stringify(threads),
             });
         }
-
+        */
         
